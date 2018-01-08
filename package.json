@@ -1,0 +1,23 @@
+{
+  "name": "redis-tasks",
+  "version": "1.0.0",
+  "description": "use redis in a sample nodejs app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Majestic3691/redis-app.git"
+  },
+  "keywords": [
+    "nodejs",
+    "redis"
+  ],
+  "author": "Michael Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Majestic3691/redis-app/issues"
+  },
+  "homepage": "https://github.com/Majestic3691/redis-app#readme"
+}
