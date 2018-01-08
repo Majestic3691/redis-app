@@ -19,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/Majestic3691/redis-app/issues"
   },
-  "homepage": "https://github.com/Majestic3691/redis-app#readme"
+  "homepage": "https://github.com/Majestic3691/redis-app#readme",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "ejs": "^2.4.2",
+    "morgan": "*",
+    "redis": "*"
+  }
 }
