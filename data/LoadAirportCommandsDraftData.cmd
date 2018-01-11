@@ -1,12 +1,6 @@
 //Operations       StateName            Longitude      Latitude   FullName
 geoadd Alabama -85.55815556 32.45352778 "Little Texas" -85.809675 32.16681389 "Franklin Field" -85.16901667 32.82971667 "Geo H Lanier Memorial Hosp" -88.11547583 33.84671889 "Lamar County" -86.33099414 32.52734131 "Wetumpka Muni" -86.11916667 32.45541417 "Emerald Mountain" -88.37723417   30.81268778 "Evans Field" -86.51303667 33.23400306 "Lazy Eight Airpark Llc" -86.46913333 33.24653333 "Gaston Steam Plant" -87.84527778 33.86333333 "Bird Nest" -86.22228611 34.66634722 "J5 Mike" -85.65181667 31.81668611 "Louisville Stagefield Ahp"
-GEOADD Arkansas -91.46529467 34.41247464 "Almyra Muni" -93.75870556 35.39285556 "Winfield Airpark"
-                                   -93.06608333   34.09980556 "Dexter B Florence Memorial Field"
-                                   -93.34972222   34.12333333 "Ashworth"
-                                   -91.56266667   36.26488889 "Sharp County Rgnl"
-                                   -91.35846167   35.28869667 "Augusta"
-                                   -91.27033056   35.27190556 "Woodruff County"
-                                   -91.55769444   35.29947222 "Bald Knob Muni"
+GEOADD Arkansas -91.46529467 34.41247464 "Almyra Muni" -93.75870556 35.39285556 "Winfield Airpark" -93.06608333 34.09980556 "Dexter B Florence Memorial Field" -93.34972222 34.12333333  "Ashworth" -91.56266667 36.26488889 "Sharp County Rgnl" -91.35846167 35.28869667 "Augusta" -91.27033056 35.27190556 "Woodruff County" -91.55769444 35.29947222 "Bald Knob Muni"
                                    -91.64744444   35.72622222 "Batesville Rgnl"
                                    -91.63458306   35.76813222 "White River Medical Center"
                                    -91.13345639    35.398695  "Breckenridge"
