@@ -19,10 +19,10 @@ docker run -d --name redis-svr -p 6379:6379/tcp redis
 ### Load data using redis-cli via Docker
 Copy the data files into the container's home directory
 ```
- docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.data b336bd587683:/home/LoadAirportData.data
+ docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.data b336bd587683:/home/LoadAirportDataReady.data
 ```
 ```
-PS C:\projects\aws\github\redis-tasks\data> docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data
+docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data
 ```
 
 ```
@@ -32,9 +32,27 @@ cat /home/LoadAirportDataReady.data | /usr/local/bin/redis-cli --pipe
 cat /home/Task.data | /usr/local/bin/redis-cli --pipe
 All data transferred. Waiting for the last reply...
 Last reply received from server.
-errors: 0, replies: 4```
+errors: 0, replies: 4
+```
 
 ### Verify data
+Verify tasks were loaded
+```
+docker container exec -t -i redis-svr /usr/local/bin/redis-cli lrange tasks 0 -1
+
+1) "Plan SpaceX vacation"
+2) "Investor Meeting"
+3) "Award Dinner"
+4) "Grocery Shopping"
+```
+Verify geo spatial data is loaded
+```
+docker container exec -t -i redis-svr /usr/local/bin/redis-cli geopos Texas Amoco
+
+1) 1) "-95.19020587205886841"
+   2) "29.23135112784979839"
+
+```
 
 ### Run application
 
