@@ -4,13 +4,17 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var redis = require('redis')
+var config = require('./config')
 
 var app = express()
 
-//Create redis client
-var client = redis.createClient()
+// Create redis client
+var client = redis.createClient(config.redisConf.port, config.redisConf.host)
 client.on('connect', function () {
   console.log('Redis Server Connected...')
+})
+client.on('error', function (err) {
+  console.log('Error ' + err)
 })
 
 // view engine setup
@@ -26,7 +30,7 @@ app.get('/', function (req, res) {
 //  res.send('Welcome!')
   var title = 'Task List'
 
-  client.lrange('tasks', 0 , -1, function(err, reply){
+  client.lrange('tasks', 0 , -1, function(err, reply) {
     res.render('index', {
       title: title,
       tasks: reply
@@ -34,7 +38,7 @@ app.get('/', function (req, res) {
 
   })
 })
-app.listen(3000)
-console.log('Server Started on Port 3000...')
+app.listen(config.Port)
+console.log('Server Started on Port ' + config.port + '...')
 
 module.exports = app

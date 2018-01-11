@@ -1,0 +1,4 @@
+lpush tasks "Grocery Shopping"
+lpush tasks "Award Dinner"
+lpush tasks "Investor Meeting"
+lpush tasks "Plan SpaceX vacation"
