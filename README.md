@@ -18,12 +18,18 @@ docker run -d --name redis-svr -p 6379:6379/tcp redis
 
 ### Load data using redis-cli via Docker
 Copy the data files into the container's home directory
-``` docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.cmd b336bd587683:/home/LoadAirportData.cmd
-PS C:\projects\aws\github\redis-tasks\data> docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data```
-
-```cat /home/LoadAirportDataReady.data | /usr/local/bin/redis-cli --pipe
 ```
-```cat /home/Task.data | /usr/local/bin/redis-cli --pipe
+ docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.data b336bd587683:/home/LoadAirportData.data
+```
+```
+PS C:\projects\aws\github\redis-tasks\data> docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data
+```
+
+```
+cat /home/LoadAirportDataReady.data | /usr/local/bin/redis-cli --pipe
+```
+```
+cat /home/Task.data | /usr/local/bin/redis-cli --pipe
 All data transferred. Waiting for the last reply...
 Last reply received from server.
 errors: 0, replies: 4```
