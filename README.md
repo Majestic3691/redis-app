@@ -8,15 +8,22 @@
 
 
 ### Redis setup on Docker - container
-
+Run the command to create the container for the Redis server
+```
+docker run -d --name redis-svr -p 6379:6379/tcp redis
+```
 
 ### Obtain data
   Get sample data from airports by State and convert from CSV file to format for import via redis pipping.
 
 ### Load data using redis-cli via Docker
+Copy the data files into the container's home directory
+``` docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.cmd b336bd587683:/home/LoadAirportData.cmd
+PS C:\projects\aws\github\redis-tasks\data> docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data```
 
-
-```root@be52e2b94e4f:/home# cat /home/Task.data | /usr/local/bin/redis-cli --pipe -h 172.17.0.2
+```cat /home/LoadAirportDataReady.data | /usr/local/bin/redis-cli --pipe
+```
+```cat /home/Task.data | /usr/local/bin/redis-cli --pipe
 All data transferred. Waiting for the last reply...
 Last reply received from server.
 errors: 0, replies: 4```
