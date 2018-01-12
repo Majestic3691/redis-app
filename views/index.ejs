@@ -1,7 +1,38 @@
+<style>
+	.del:checked + span{
+		color:red;
+	}
+
+	.task-list{
+		list-style:none;
+	}
+
+	.header3{
+		text-align: left;
+		font-size: 150%;
+
+	}
+</style>
+
+<h3 class="header3">Redis - List, Hash, Geo Spatial operations</h3>
+
+<form method="post" action="/task/add">
+	<label>Add Task</label>
+	<input type="text" name="task" placeholder="Add Task">
+	<input type="submit" value="Submit">
+</form>
+
 <%= title %>
 
-<ul>
-<% tasks.forEach(function(task){ %>
-	<li><%= task %></li>
-<% }) %>
-</ul>
+<form method="post" action="/task/delete">
+	<ul class="task-list">
+	<% tasks.forEach(function(task){ %>
+		<li>
+			<label>
+				<input type="checkbox" name="tasks" class="del" value="<%= task %>"><span><%= task %></span>
+			</label>
+		</li>
+	<% }) %>
+	</ul>
+	<input type="submit" value="Remove">
+</form>

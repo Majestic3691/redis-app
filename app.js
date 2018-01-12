@@ -11,7 +11,7 @@ var app = express()
 var client = redis.createClient(config.redisConf.port, config.redisConf.host)
 
 client.on('connect', function () {
-  console.log('Redis Server Connected...')
+  console.log('Redis Server Connected at ' + config.redisConf.host + ':' + config.redisConf.port + '...')
 })
 
 client.on('error', function (err) {
@@ -31,6 +31,9 @@ app.get('/', function (req, res) {
   var title = 'Task List'
 
   client.lrange('tasks', 0, -1, function (err, reply) {
+    if (err) {
+      console.log(err.stack)
+    }
     res.render('index', {
       title: title,
       tasks: reply
@@ -41,6 +44,7 @@ app.get('/', function (req, res) {
 app.post('/task/add', function (req, res) {
   var task = req.body.task
 
+  console.log('Adding task: ' + task)
   client.rpush('tasks', task, function (err, reply) {
     if (err) {
       console.log(err)
@@ -50,7 +54,31 @@ app.post('/task/add', function (req, res) {
   })
 })
 
+app.post('/task/delete', function (req, res) {
+  var tasksToDel = req.body.tasks
+
+  client.lrange('tasks', 0, -1, function (err, tasks) {
+    for (var i = 0; i < tasks.length; i++) {
+      if (tasksToDel.indexOf(tasks[i]) > -1) {
+        client.lrem('tasks', 0, tasks[i], function () {
+          if (err) {
+            console.log(err)
+          }
+        })
+      }
+    }
+    res.redirect('/')
+  })
+})
+
+// app.get() //calculate distance between 2 airports in the same State
+// 3 dropdowns
+// fill in dropdowns choose state then each airport
+// use the 2 values to find distance
+// button Calculate
+// 1 text box = distance
+
 app.listen(config.app_port)
-console.log('Server Started on Port ' + config.port + '...')
+console.log('Server Started on Port ' + config.app_port + '...')
 
 module.exports = app
