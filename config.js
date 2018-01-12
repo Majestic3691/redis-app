@@ -1,5 +1,5 @@
 var config = {
-  port: 3000,
+  app_port: 3000,
 //  secret: 'secret',
 
   redisConf: {
