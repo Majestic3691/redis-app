@@ -32,11 +32,17 @@ app.get('/', function (req, res) {
 
   client.lrange('tasks', 0, -1, function (err, reply) {
     if (err) {
-      console.log(err.stack)
+      console.log(err)
     }
-    res.render('index', {
-      title: title,
-      tasks: reply
+    client.hgetall('call', function (err, call) {
+      if (err) {
+        console.log(err.stack)
+      }
+      res.render('index', {
+        title: title,
+        tasks: reply,
+        call: call
+      })
     })
   })
 })
@@ -71,6 +77,41 @@ app.post('/task/delete', function (req, res) {
   })
 })
 
+app.post('/call/add', function (req, res) {
+  var newCall = {}
+
+  newCall.name = req.body.name
+  newCall.company = req.body.company
+  newCall.phone = req.body.phone
+  newCall.time = req.body.time
+
+  console.log('Adding call record for: ' + newCall.name)
+  client.hmset('call', ['name', newCall.name, 'company', newCall.company, 'phone', newCall.phone, 'time', newCall.time], function (err, reply) {
+    if (err) {
+      console.log(err)
+    }
+    console.log('Added call record: ' + reply)
+    res.redirect('/')
+  })
+})
+
+app.post('/distance/calc', function (req, res){
+  var newCalc = {}
+
+  newCalc.state = req.body.state
+  newCalc.origin = req.body.origin
+  newCalc.destination = req.body.destination
+  newCalc.distance = req.body.distance
+
+  console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
+  client.geodist('call', ['name', newCall.name, 'company', newCall.company, 'phone', newCall.phone, 'time', newCall.time], function (err, reply) {
+    if (err) {
+      console.log(err)
+    }
+    console.log('Added call record: ' + reply)
+    res.redirect('/')
+  })
+})
 // app.get() //calculate distance between 2 airports in the same State
 // 3 dropdowns
 // fill in dropdowns choose state then each airport

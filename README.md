@@ -62,6 +62,7 @@ docker container exec -t -i redis-svr /usr/local/bin/redis-cli geopos Texas Amoc
 #### Technology used
 1. [Node.js](https://nodejs.org/)  
 2. [ejs](http://ejs.co/)  
-3. [nodemon]()
+3. [nodemon](https://www.npmjs.com/package/nodemon)
 3. [Docker](https://www.docker.com/)
 4. [Redis](https://redis.io/)
+5. [Twitter Bootstrap](https://getbootstrap.com/2.3.2/)
