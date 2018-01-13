@@ -38,10 +38,12 @@ app.get('/', function (req, res) {
       if (err) {
         console.log(err.stack)
       }
+    client.geopos()
       res.render('index', {
         title: title,
         tasks: reply,
-        call: call
+        call: call,
+        calc: calc
       })
     })
   })
@@ -118,6 +120,9 @@ app.post('/distance/calc', function (req, res){
 // use the 2 values to find distance
 // button Calculate
 // 1 text box = distance
+// add set of states - to retreive a list of all states
+// add set of locations for each state - to retrieve the list for the dropdowns
+
 
 app.listen(config.app_port)
 console.log('Server Started on Port ' + config.app_port + '...')
