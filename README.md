@@ -51,7 +51,27 @@ docker container exec -t -i redis-svr /usr/local/bin/redis-cli geopos Texas Amoc
 
 1) 1) "-95.19020587205886841"
    2) "29.23135112784979839"
+```
 
+```
+docker container exec -t -i redis-svr /usr/local/bin/redis-cli geodist Massachusetts Cranland Crowhurst mi
+
+"38.4314"
+```
+
+```
+docker container exec -t -i redis-svr /usr/local/bin/redis-cli smember States
+
+1) "Wisconsin"
+2) "North Carolina"
+3) "New York"
+4) "California"
+5) "Wyoming"
+6) "Louisiana"
+7) "Ohio"
+8) "Midway Atoll"
+9) "Tennessee"
+58 rows...
 ```
 
 ### Run application
