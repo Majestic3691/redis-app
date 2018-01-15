@@ -130,9 +130,13 @@ Time: <%= call.time %><br>
 <form method="post" action="/distance/calc">
 <label>State</label><br>
 <select id="state" name="state" placeholder="State">
-	<option value="Texas">Texas</option>
+<% states.forEach(function(state){ %>
+	<option value="<%= state %>"><%= state %></option>
+<% }) %>
 </select>
 <br><br>
+<comment>fill this box when the state is selected</comment>
+<!-- https://stackoverflow.com/questions/41148900/how-to-populate-html-drop-down-with-nodejs-data -->
 <label>Airport - Origin</label><br>
 <select id="origin" name="origin" placeholder="Origin">
 	<option value="Austin">Austin</option>
@@ -140,6 +144,7 @@ Time: <%= call.time %><br>
 	<option value="Galveston">Galveston</option>
 </select>
 <br><br>
+<comment>fill this box when the state is selected</comment>
 <label>Airport - Destination</label><br>
 <select id="destination" name="destination" placeholder="Destination">
 	<option value="Austin">Austin</option>

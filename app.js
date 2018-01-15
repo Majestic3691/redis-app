@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', function (req, res) {
-  var title = 'Task List'
+  var title = 'Task List(Main)'
 
   client.lrange('tasks', 0, -1, function (err, reply) {
     if (err) {
@@ -38,11 +38,23 @@ app.get('/', function (req, res) {
       if (err) {
         console.log(err.stack)
       }
+      client.smembers('states', function (err, states) {
+        if (err) {
+          console.log(err)
+        }
+        client.smembers('airportsbystate', function (err, airportsbystate) {
+          if (err) {
+            console.log(err)
+          }
+        })
+      })
     client.geopos()
       res.render('index', {
         title: title,
         tasks: reply,
         call: call,
+        states: states,
+        airportsbystate: airportsbystate,
         calc: calc
       })
     })

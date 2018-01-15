@@ -16,10 +16,22 @@ docker run -d --name redis-svr -p 6379:6379/tcp redis
 ### Obtain data
   Get sample data from airports by State and convert from CSV file to format for import via redis pipping.
 
+### Load the Docker container with the data and script files
+Run the powershell script - CopyDataToContainer.ps1
+```
+Set-PSDebug -Trace 1
+docker cp .\GEOAirportDataReady.data redis-svr:/home/GEOAirportDataReady.data
+docker cp .\StateAirportsSetReady.data redis-svr:/home/StateAirportsSetReady.data
+docker cp .\StatesReady.data redis-svr:/home/StatesReady.data
+docker cp .\TaskReady.data redis-svr:/home/TaskReady.data
+docker cp .\LoadData.sh redis-svr:/home/LoadData.sh
+```
+
 ### Load data using redis-cli via Docker
+
 Copy the data files into the container's home directory
 ```
- docker cp C:\Projects\AWS\github\redis-tasks\data\LoadAirportDataReady.data b336bd587683:/home/LoadAirportDataReady.data
+ docker cp C:\Projects\AWS\github\redis-tasks\data\GEOAirportDataReady.data b336bd587683:/home/GEOAirportDataReady.data
 ```
 ```
 docker cp C:\Projects\AWS\github\redis-tasks\data\Task.data b336bd587683:/home/Task.data
