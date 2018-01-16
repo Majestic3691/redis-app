@@ -127,15 +127,17 @@ app.get('/states', function (req, res) {
   })
 })
 
- app.get('/state/:state/airports', function (req, res) {
-  client.smembers('airportsbystate', function (err, results) {
+app.get('/state/:state/airports', function (req, res, next) {
+  var state = req.params.states
+  client.smembers(state, function (err, results) {
     if (err) {
       console.log(err)
+    } else {
+      console.log('Airports for ' + state + ': ' + results)
     }
-    var airportsbystate = results
-    console.log('Airports for ' + :state + ': ' + airportsbystate)
+    return res.render('airports', results)
   })
- })
+})
 
 // default for units is meters
 app.post('/distance/calc', function (req, res) {

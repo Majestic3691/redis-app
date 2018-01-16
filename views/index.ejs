@@ -158,8 +158,10 @@ Time: <%= call.time %><br>
 	<option value="m">Meters</option>
 	<option value="mi">Miles</option>
 </select>
-<label>Distance</label><br>
-<input type="text" name="distance" placeholder="Distance" value="<%= calc.distance %>">
+<br>
+<%if (false) {%>
+	<label>Distance in <%= calc.units %>:</label> <label><%= calc.distance %></label>
+<%}%>
 <br><br>
 <input type="submit" value="Calculate">
 </form>
