@@ -7,6 +7,15 @@ var config = require('./config')
 // var tls = require('tls')
 // var fs = require('fs')
 var app = express()
+const options = {
+  url: 'https://jsonplaceholder.typicode.com/posts',
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Accept-Charset': 'utf-8',
+    'User-Agent': 'my-reddit-client'
+  }
+}
 
 // Establish SSL
 // var ssl = {
@@ -118,24 +127,25 @@ app.post('/call/add', function (req, res) {
 })
 
 app.get('/states', function (req, res) {
-  client.smembers('States', function (err, results) {
+  client.smembers('states', function (err, results) {
     if (err) {
       console.log(err)
     }
     var states = results
-    console.log('States: ' + states)
+    console.log('states: ' + states)
+    return res.status(200).send(results)
   })
 })
 
-app.get('/state/:state/airports', function (req, res, next) {
-  var state = req.params.states
+app.get('/airports/:state', function (req, res) {
+  var state = req.params.state
   client.smembers(state, function (err, results) {
     if (err) {
       console.log(err)
     } else {
       console.log('Airports for ' + state + ': ' + results)
     }
-    return res.render('airports', results)
+    return res.status(200).send(results)
   })
 })
 
