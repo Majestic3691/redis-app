@@ -4,10 +4,19 @@ var logger = require('morgan')
 var bodyParser = require('body-parser')
 var redis = require('redis')
 var config = require('./config')
-
+// var tls = require('tls')
+// var fs = require('fs')
 var app = express()
 
+// Establish SSL
+// var ssl = {
+//  key: fs.readFileSync('C:\\Users\\Michael\\OneDrive\\MTRConsulting\\Certificates\\TwoDudes.ppk', encoding = 'ascii'),
+//  cert: fs.readFileSync('C:\\Users\\Michael\\OneDrive\\MTRConsulting\\Certificates\\TwoDudesCert.pfx', encoding = 'ascii')
+//  ca: [ fs.readFileSync('path to ca certfile', encoding = 'ascii') ]
+// }
+
 // Create Client
+// var client = redis.createClient(config.redisConf.port, config.redisConf.host, {tls: ssl})
 var client = redis.createClient(config.redisConf.port, config.redisConf.host)
 
 client.on('connect', function () {
@@ -32,30 +41,29 @@ app.get('/', function (req, res) {
 
   client.lrange('tasks', 0, -1, function (err, reply) {
     if (err) {
-      console.log(err)
+      console.log(err.stack)
+    } else {
+      console.log('Contents of tasks: ' + reply)
     }
     client.hgetall('call', function (err, call) {
       if (err) {
         console.log(err.stack)
+      } else {
+        console.log('Contents of call: \nName: ' + call.name + '\nCompany: ' + call.company + '\nPhone: ' + call.phone + '\nTime: ' + call.time)
       }
-      client.smembers('states', function (err, states) {
+      client.smembers('states', function (err, results) {
         if (err) {
-          console.log(err)
+          console.log(err.stack)
+        } else {
+          console.log('Contents of results: ' + results)
         }
-        client.smembers('airportsbystate', function (err, airportsbystate) {
-          if (err) {
-            console.log(err)
-          }
+        res.render('index', {
+          title: title,
+          tasks: reply,
+          call: call,
+          states: results,
+
         })
-      })
-    client.geopos()
-      res.render('index', {
-        title: title,
-        tasks: reply,
-        call: call,
-        states: states,
-        airportsbystate: airportsbystate,
-        calc: calc
       })
     })
   })
@@ -99,7 +107,7 @@ app.post('/call/add', function (req, res) {
   newCall.phone = req.body.phone
   newCall.time = req.body.time
 
-  console.log('Adding call record for: ' + newCall.name)
+  console.log('Adding call record for: ' + newCall)
   client.hmset('call', ['name', newCall.name, 'company', newCall.company, 'phone', newCall.phone, 'time', newCall.time], function (err, reply) {
     if (err) {
       console.log(err)
@@ -109,31 +117,50 @@ app.post('/call/add', function (req, res) {
   })
 })
 
-app.post('/distance/calc', function (req, res){
+app.get('/states', function (req, res) {
+  client.smembers('States', function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    var states = results
+    console.log('States: ' + states)
+  })
+})
+
+ app.get('/state/:state/airports', function (req, res) {
+  client.smembers('airportsbystate', function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    var airportsbystate = results
+    console.log('Airports for ' + :state + ': ' + airportsbystate)
+  })
+ })
+
+// default for units is meters
+app.post('/distance/calc', function (req, res) {
   var newCalc = {}
 
   newCalc.state = req.body.state
   newCalc.origin = req.body.origin
   newCalc.destination = req.body.destination
-  newCalc.distance = req.body.distance
+  newCalc.distance = res.body.distance
+  newCalc.units = req.body.units
 
   console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
-  client.geodist('call', ['name', newCall.name, 'company', newCall.company, 'phone', newCall.phone, 'time', newCall.time], function (err, reply) {
+  client.geodist('calc', ['state', newCalc.state, 'origin', newCalc.origin, 'destination', newCalc.destination, 'distance', newCalc.distance, 'units', newCalc.units], function (err, results) {
     if (err) {
       console.log(err)
     }
-    console.log('Added call record: ' + reply)
+    console.log('Geo distance calculated: ' + results)
     res.redirect('/')
   })
 })
 // app.get() //calculate distance between 2 airports in the same State
-// 3 dropdowns
 // fill in dropdowns choose state then each airport
-// use the 2 values to find distance
-// button Calculate
-// 1 text box = distance
-// add set of states - to retreive a list of all states
-// add set of locations for each state - to retrieve the list for the dropdowns
+// create javascript function and event for choosing state.
+// On state selected event, execute the ajax script to retrieve the data for the origin and destination dropdowns
+//
 
 
 app.listen(config.app_port)

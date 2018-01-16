@@ -1,0 +1,1 @@
+ hmset call ['name' Joe, 'company' Caterpillar, 'phone' 3096551235, time 'Thursday 09:00']
