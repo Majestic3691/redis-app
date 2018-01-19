@@ -21,10 +21,11 @@
   },
   "homepage": "https://github.com/Majestic3691/redis-app#readme",
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
     "cookie-parser": "*",
     "ejs": "^2.4.2",
+    "express": "*",
+    "jquery": "^3.2.1",
     "morgan": "*",
     "redis": "*"
   }

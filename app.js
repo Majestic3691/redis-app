@@ -1,4 +1,5 @@
 var express = require('express')
+var jQuery = require('jQuery')
 var path = require('path')
 var logger = require('morgan')
 var bodyParser = require('body-parser')
@@ -28,6 +29,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(router)
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'static')))
 app.use('/', routes)
 
 // development error handler
@@ -58,6 +60,6 @@ app.use(function (req, res, next) {
 })
 
 app.listen(config.app_port)
-console.log('Server Started on Port ' + config.app_port + '...')
+console.log('Server Started at ' + new Date() + ' on Port ' + config.app_port + '...')
 
 module.exports = app

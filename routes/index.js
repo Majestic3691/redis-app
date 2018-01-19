@@ -99,9 +99,9 @@ router.get('/call/list', function (req, res) {
     if (err) {
       console.log(err)
     }
-    var call = results
-    console.log('call: ' + call)
-    return res.status(200).send(results)
+    var jsonList = JSON.stringify(results)
+    console.log('jsonList: ' + jsonList)
+    return res.status(200).send(jsonList)
   })
 })
 
@@ -128,9 +128,9 @@ router.get('/task/list', function (req, res) {
     if (err) {
       console.log(err)
     }
-    var tasks = results
-    console.log('states: ' + tasks)
-    return res.status(200).send(results.sort())
+    var jsonTasks = JSON.stringify(results.sort())
+    console.log('states: ' + jsonTasks)
+    return res.status(200).send(jsonTasks)
   })
 })
 
@@ -139,9 +139,9 @@ router.get('/states', function (req, res) {
     if (err) {
       console.log(err)
     }
-    var states = results
-    console.log('states: ' + states)
-    return res.status(200).send(results.sort())
+    var jsonStates = JSON.stringify(results.sort())
+    console.log('states: ' + jsonStates)
+    return res.status(200).send(jsonStates)
   })
 })
 
@@ -153,7 +153,8 @@ router.get('/airports/:state', function (req, res) {
     } else {
       console.log('Airports for ' + state + ': ' + results)
     }
-    return res.status(200).send(results.sort())
+    var jsonAirports = JSON.stringify(results.sort())
+    return res.status(200).send(jsonAirports)
   })
 })
 
