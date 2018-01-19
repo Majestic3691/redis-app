@@ -165,13 +165,17 @@ router.get('/distance/calc/test', function (req, res) {
 router.get('/distance/calc', function (req, res) {
   var newCalc = {}
 
-  newCalc.state = req.query.state
-  newCalc.origin = req.query.origin
-  newCalc.destination = req.query.destination
-  newCalc.units = req.query.units
+  console.log('Received: ' + req)
+  var vUrl = decodeURI(req)
+  console.log('Decoded: ' + vUrl)
+
+  newCalc.state = vUrl.query.state
+  newCalc.origin = vUrl.query.origin
+  newCalc.destination = vUrl.query.destination
+  newCalc.units = vUrl.query.units
 
   console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
-  client.geodist(req.query.state, req.query.origin, req.query.destination, req.query.units, function (err, results) {
+  client.geodist(newCalc.state, newCalc.origin, newCalc.destination, newCalc.units, function (err, results) {
     if (err) {
       console.log(err)
     }

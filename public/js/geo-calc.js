@@ -1,6 +1,13 @@
 
-function processGeoCalc () {
+document.getElementById('calculate').addEventListener('click', function () {
   console.log('(calculate)Click event fired!!!')
+  cleanupFeedbackMsgs()
+  cleanupResultMsgs()
+  validateCalcForm()
+})
+
+function processGeoCalc () {
+  console.log('processGeoCalc')
   try {
     var httpOP = 'GET'
     var url = 'http://localhost:3000/distance/calc'
@@ -12,8 +19,7 @@ function processGeoCalc () {
         console.log('GetDistance: json: ' + jsonResponse)
         var vUnits = document.getElementById('units')
         var vDistance = document.getElementById('distance')
-        var vMessage = '<strong>Success!</strong>Distance in ' + vUnits.value + ': ' + jsonResponse
-        vDistance.innerHTML = vMessage
+        vDistance.innerHTML = '<strong>Success!</strong>Distance in ' + vUnits.value + ': ' + jsonResponse
         displayMessage(vDistance, true)
       }
     }
@@ -25,9 +31,12 @@ function processGeoCalc () {
     params += 'destination=' + vDestination.value + '&'
     var vUnits = document.getElementById('units')
     params += 'units=' + vUnits.value
-    xhttp.open(httpOP, url + '?' + params, true)
+    var vURL = url + '?' + params
+    var vEncodedURL = encodeURIComponent(vURL)
+    console.log('Requesting: ' + vEncodedURL)
+    xhttp.open(httpOP, vEncodedURL, true)
 //    xhttp.open('GET', 'http://localhost:3000/distance/calc/test', true)
-//http://localhost:3000/distance/calc?state=Guam&origin=Andersen+Afb&destination=Guam+Intl&units=km
+// http://localhost:3000/distance/calc?state=Guam&origin=Andersen+Afb&destination=Guam+Intl&units=km
     xhttp.setRequestHeader('Content-type', 'application/json')
     xhttp.send()
     console.log('Get response: ' + xhttp.responseText)
@@ -38,6 +47,8 @@ function processGeoCalc () {
 
 document.getElementById('state').addEventListener('change', function () {
   console.log('(state)Change event fired!!!')
+  cleanupFeedbackMsgs()
+  cleanupResultMsgs()
   var vState = document.getElementById('state')
   console.log('State selected value: ' + vState.value)
   try {
@@ -72,6 +83,18 @@ document.getElementById('state').addEventListener('change', function () {
   }
 })
 
+function cleanupFeedbackMsgs () {
+  var divMessage = document.getElementById('message')
+  divMessage.innerHTML = ''
+  displayMessage(divMessage, false)
+}
+
+function cleanupResultMsgs () {
+  var vDistance = document.getElementById('distance')
+  vDistance.innerHTML = ''
+  displayMessage(vDistance, false)
+}
+
 function makeOptionElement (vFragment, vKey, vValue) {
   var opt = document.createElement('option')
   opt.innerHTML = vKey
@@ -100,8 +123,8 @@ function validateCalcForm () {
     vMessage += '<strong>Warning!</strong>Please choose a unit!<br>'
   }
   if (vMessage.length > 0) {
-    displayMessage(divMessage, true)
     divMessage.innerHTML = vMessage
+    displayMessage(divMessage, true)
     return false
   } else {
     processGeoCalc()

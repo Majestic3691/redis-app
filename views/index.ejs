@@ -133,7 +133,8 @@ Time: <%= call.time %><br>
 <H3 class="header3">GEO</h3>
 <H3 class="header3">Calculate linear distance between airports within a state</h3>
 
-<form method="get" onsubmit="return validateCalcForm()">
+<div id="cdg">
+<form id="calcGeoDist">
 <label>State</label><br>
 <select id="state" name="state" placeholder="State">
 <option value=""></option>
@@ -161,7 +162,8 @@ Time: <%= call.time %><br>
 	<option value="m">Meters</option>
 	<option value="mi">Miles</option>
 </select>
-<br>
+</div>
+<br><br>
 <div class="container">
 <div id="distance" class="alert alert-success" style="display: none">
 </div>
@@ -171,7 +173,7 @@ Time: <%= call.time %><br>
   </div>
 </div>
 <br><br>
-<input id="calculate" type="submit" value="Calculate">
+<input id="calculate" type="button" value="Calculate">
 </form>
 
 
