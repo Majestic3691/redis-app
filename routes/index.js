@@ -158,20 +158,20 @@ router.get('/airports/:state', function (req, res) {
   })
 })
 
-router.get('/distance/calcTest', function (req, res) {
+router.get('/distance/calc/test', function (req, res) {
   return res.status(200).send('5004 miles')
 })
 
 router.get('/distance/calc', function (req, res) {
   var newCalc = {}
 
-  newCalc.state = req.body.state
-  newCalc.origin = req.body.origin
-  newCalc.destination = req.body.destination
-  newCalc.distance = res.body.distance
+  newCalc.state = req.query.state
+  newCalc.origin = req.query.origin
+  newCalc.destination = req.query.destination
+  newCalc.units = req.query.units
 
   console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
-  client.geodist('calc', ['state', newCalc.state, 'origin', newCalc.origin, 'destination', newCalc.destination, 'distance', newCalc.distance, 'units', newCalc.units], function (err, results) {
+  client.geodist(req.query.state, req.query.origin, req.query.destination, req.query.units, function (err, results) {
     if (err) {
       console.log(err)
     }
@@ -179,26 +179,5 @@ router.get('/distance/calc', function (req, res) {
     return res.status(200).send(results)
   })
 })
-
-// default for units is meters
-router.post('/distance/calc', function (req, res) {
-  var newCalc = {}
-
-  newCalc.state = req.body.state
-  newCalc.origin = req.body.origin
-  newCalc.destination = req.body.destination
-  newCalc.distance = res.body.distance
-  newCalc.units = req.body.units
-
-  console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
-  client.geodist('calc', ['state', newCalc.state, 'origin', newCalc.origin, 'destination', newCalc.destination, 'distance', newCalc.distance, 'units', newCalc.units], function (err, results) {
-    if (err) {
-      console.log(err)
-    }
-    console.log('Geo distance calculated: ' + results)
-    return res.status(200).send(results)
-  })
-})
-// app.get() //calculate distance between 2 airports in the same State
 
 module.exports = router

@@ -1,5 +1,6 @@
 <head>
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
 	.del:checked + span{
 		color:red;
@@ -26,6 +27,10 @@
     padding: 15px;
     -webkit-flex: 1 100%;
     flex: 1 100%;
+}
+
+.warning {
+
 }
 
 .article {
@@ -128,43 +133,45 @@ Time: <%= call.time %><br>
 <H3 class="header3">GEO</h3>
 <H3 class="header3">Calculate linear distance between airports within a state</h3>
 
-<form method="post" action="/distance/calc">
+<form method="get" onsubmit="return validateCalcForm()">
 <label>State</label><br>
 <select id="state" name="state" placeholder="State">
+<option value=""></option>
 <% states.forEach(function(state){ %>
 	<option value="<%= state %>"><%= state %></option>
 <% }) %>
 </select>
 <br><br>
-<comment>fill this box when the state is selected</comment>
 <!-- https://stackoverflow.com/questions/41148900/how-to-populate-html-drop-down-with-nodejs-data -->
 <label>Airport - Origin</label><br>
 <select id="origin" name="origin" placeholder="Origin">
-<!--	<option value="Austin">Austin</option> -->
-<!--	<option value="Bryan">Bryan</option> -->
 <!--	<option value="Galveston">Galveston</option> -->
 </select>
 <br><br>
-<comment>fill this box when the state is selected</comment>
 <label>Airport - Destination</label><br>
 <select id="destination" name="destination" placeholder="Destination">
 <!--	<option value="Austin">Austin</option> -->
-<!--	<option value="Bryan">Bryan</option> -->
-<!--	<option value="Galveston">Galveston</option> -->
 </select>
 <br><br>
+<label>Units</label><br>
 <select id="units" name="units" placeholder="Unit of measure">
+  <option value=""></option>
   <option value="ft">Feet</option>
 	<option value="km">Kilometers</option>
 	<option value="m">Meters</option>
 	<option value="mi">Miles</option>
 </select>
 <br>
-<%if (false) {%>
-	<label id="Distance">Distance in <%= calc.units %>:</label> <label><%= calc.distance %></label>
-<%}%>
+<div class="container">
+<div id="distance" class="alert alert-success" style="display: none">
+</div>
 <br><br>
-<input id="Calculate" type="submit" value="Calculate">
+<div class="container">
+  <div id="message" class="alert alert-warning" style="display: none">
+  </div>
+</div>
+<br><br>
+<input id="calculate" type="submit" value="Calculate">
 </form>
 
 
