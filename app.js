@@ -1,5 +1,4 @@
 var express = require('express')
-var jQuery = require('jQuery')
 var path = require('path')
 var logger = require('morgan')
 var bodyParser = require('body-parser')

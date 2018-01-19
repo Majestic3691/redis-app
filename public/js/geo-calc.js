@@ -1,4 +1,33 @@
 
+document.getElementById('Calculate').addEventListener('click', function () {
+  console.log('OnClick event fired!!!')
+  try {
+    var xhttp = new XMLHttpRequest()
+    xhttp.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        var jsonResponse = JSON.parse(xhttp.responseText)
+// set the label Distance
+        console.log('GetDistance: json: ' + jsonResponse)
+        var vDistance = document.getElementById('Distance')
+        vDistance.innerHTML = jsonResponse
+      }
+    }
+//      var vState = document.getElementById('state')
+//      var vOrigin = document.getElementById('origin')
+//      var vDestination = document.getElementById('destination')
+//      var vUnits = document.getElementById('units')
+// write the geopos call
+// call geopos and return the value
+//      xhttp.open('GET', 'http://localhost:3000//distance//calc', true)
+    xhttp.open('GET', 'http://localhost:3000//distance//calcTest', true)
+    xhttp.setRequestHeader('Content-type', 'application/json')
+    xhttp.send()
+    console.log('Get response: ' + xhttp.responseText)
+  } catch (error) {
+    console.log('Http request GetAirports: ' + error.stack)
+  }
+})
+
 document.getElementById('state').addEventListener('change', function () {
   console.log('OnChange event fired!!!')
   var vState = document.getElementById('state')

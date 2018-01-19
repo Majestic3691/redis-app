@@ -158,6 +158,28 @@ router.get('/airports/:state', function (req, res) {
   })
 })
 
+router.get('/distance/calcTest', function (req, res) {
+  return res.status(200).send('5004 miles')
+})
+
+router.get('/distance/calc', function (req, res) {
+  var newCalc = {}
+
+  newCalc.state = req.body.state
+  newCalc.origin = req.body.origin
+  newCalc.destination = req.body.destination
+  newCalc.distance = res.body.distance
+
+  console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
+  client.geodist('calc', ['state', newCalc.state, 'origin', newCalc.origin, 'destination', newCalc.destination, 'distance', newCalc.distance, 'units', newCalc.units], function (err, results) {
+    if (err) {
+      console.log(err)
+    }
+    console.log('Geo distance calculated: ' + results)
+    return res.status(200).send(results)
+  })
+})
+
 // default for units is meters
 router.post('/distance/calc', function (req, res) {
   var newCalc = {}
@@ -178,9 +200,5 @@ router.post('/distance/calc', function (req, res) {
   })
 })
 // app.get() //calculate distance between 2 airports in the same State
-// fill in dropdowns choose state then each airport
-// create javascript function and event for choosing state.
-// On state selected event, execute the ajax script to retrieve the data for the origin and destination dropdowns
-//
 
 module.exports = router
