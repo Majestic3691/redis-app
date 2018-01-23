@@ -165,14 +165,21 @@ router.get('/distance/calc/test', function (req, res) {
 router.get('/distance/calc', function (req, res) {
   var newCalc = {}
 
-  console.log('Received: ' + req)
-  var vUrl = decodeURI(req)
-  console.log('Decoded: ' + vUrl)
+//  console.log('Request Parameters: State: ' + req.urlquery.state + ' Origin: ' + req.query.origin + ' Destination: ' + req.query.destination + ' Units: ' + req.query.units)
+  console.log('Method: ' + req.method)
+  console.log('Request URL: ' + req.url)
+  var url = require('url')
+  var qs = require('querystring')
+  var parsedUrl = url.parse(req.url)
+  console.log('Parsed Url(encoded): query: ' + parsedUrl.query)
+  console.log('Parsed Url(decoded): query: ' + decodeURIComponent(parsedUrl.query))
+  var parsedQs = qs.parse(decodeURIComponent(parsedUrl.query))
+  console.log('Parsed QueryString: State: ' + parsedQs.state)
 
-  newCalc.state = vUrl.query.state
-  newCalc.origin = vUrl.query.origin
-  newCalc.destination = vUrl.query.destination
-  newCalc.units = vUrl.query.units
+  newCalc.state = parsedQs.state
+  newCalc.origin = parsedQs.origin
+  newCalc.destination = parsedQs.destination
+  newCalc.units = parsedQs.units
 
   console.log('Calculating distance from ' + newCalc.origin + ' to ' + newCalc.destination + ' in ' + newCalc.state + '...')
   client.geodist(newCalc.state, newCalc.origin, newCalc.destination, newCalc.units, function (err, results) {

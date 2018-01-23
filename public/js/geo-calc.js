@@ -31,10 +31,10 @@ function processGeoCalc () {
     params += 'destination=' + vDestination.value + '&'
     var vUnits = document.getElementById('units')
     params += 'units=' + vUnits.value
-    var vURL = url + '?' + params
-    var vEncodedURL = encodeURIComponent(vURL)
-    console.log('Requesting: ' + vEncodedURL)
-    xhttp.open(httpOP, vEncodedURL, true)
+    var vEncodedParams = encodeURIComponent(params)
+    var vURL = url + '?' + vEncodedParams
+    console.log('Requesting: ' + vURL)
+    xhttp.open(httpOP, vURL, true)
 //    xhttp.open('GET', 'http://localhost:3000/distance/calc/test', true)
 // http://localhost:3000/distance/calc?state=Guam&origin=Andersen+Afb&destination=Guam+Intl&units=km
     xhttp.setRequestHeader('Content-type', 'application/json')
