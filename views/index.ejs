@@ -1,6 +1,8 @@
+<html>
 <head>
-	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+	<link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
 <style>
 	.del:checked + span{
 		color:red;
@@ -15,39 +17,21 @@
 		font-size: 150%;
 	}
 
-	.flex-container {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
-    text-align: center;
-}
+	.marginlayout {
+		margin-left: 40px
+	}
 
-.flex-container > * {
-    padding: 15px;
-    -webkit-flex: 1 100%;
-    flex: 1 100%;
-}
+	header {background: black;color:white;}
+	footer {background: #aaa;color:white;}
+	.nav {background:#eee;}
 
-.warning {
-
-}
-
-.article {
-    text-align: left;
-}
-
-header {background: black;color:white;}
-footer {background: #aaa;color:white;}
-.nav {background:#eee;}
-
-.nav ul {
+	.nav ul {
     list-style-type: none;
     padding: 0;
-}
-.nav ul a {
+	}
+	.nav ul a {
     text-decoration: none;
-}
+	}
 
 @media all and (min-width: 768px) {
     .nav {text-align:left;-webkit-flex: 1 auto;flex:1 auto;-webkit-order:1;order:1;}
@@ -56,130 +40,148 @@ footer {background: #aaa;color:white;}
 </style>
 </head>
 <body>
-<div class="flex-container">
-	<header>
-		<h3 class="header3">Redis - List, Hash, Geo Spatial operations</h3>
-	</header>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Redis - List, Hash, Geo Spatial operations</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-	<nav class="nav">
-	<ul>
-	  <li><a href="#list">List operations</a></li>
-	  <li><a href="#hash">Hash operations</a></li>
-	  <li><a href="#geo">Geo operations</a></li>
-	</ul>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+			</ul>
+		</div>
 	</nav>
 
-<section>
-This is a SECTION
-</section>
-<aside>
-This is an ASIDE
-</aside>
-
-<article id="list" class="article">
-<h3 class="header3">LIST</h3>
-<form method="post" action="/task/add">
-	<label>Add Task</label>
-	<input type="text" name="task" placeholder="Add Task">
-	<input type="submit" value="Submit">
-</form>
-
-<%= title %>
-
-<form method="post" action="/task/delete">
-	<ul class="task-list">
-	<% tasks.forEach(function(task){ %>
-		<li>
-			<label>
-				<input type="checkbox" name="tasks" class="del" value="<%= task %>"><span><%= task %></span>
-			</label>
-		</li>
-	<% }) %>
+	<ul class="nav nav-tabs">
+	  <li class="nav-item">
+	    <a class="nav-link active" data-toggle="tab" href="#list">List</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#hash">Hash</a>
+	  </li>
+	  <li class="nav-item">
+			<a class="nav-link" data-toggle="tab" href="#geo">GEO</a>
+	  </li>
 	</ul>
-	<input type="submit" value="Remove">
-</form>
-</article>
 
-<article id="hash" class="article">
-<h3 class="header3">HASH</h3>
-<h3 class="header3">Next Business Call</h3>
-Name: <%= call.name %><br>
-Company: <%= call.company %><br>
-Phone: <%= call.phone %><br>
-Time: <%= call.time %><br>
+	<div id="myTabContent" class="tab-content">
+  	<div class="tab-pane marginlayout fade show active " id="list">
+  		<h3 class="header3">LIST EXAMPLE</h3>
+			<form method="post" action="/task/add" class="bs-component">
+				<label>Add Task</label>
+				<div class="form-group">
+				<input type="text" name="task" placeholder="Add Task" class="form-control">
+				</div>
+				<input type="submit" value="Submit" class="btn btn-primary">
+			</form>
+
+			<h3><%= title %></h3>
+
+			<form method="post" action="/task/delete" class="bs-component">
+				<ul class="task-list">
+				<% tasks.forEach(function(task){ %>
+					<li>
+						<label>
+							<input type="checkbox" name="tasks" class="del form-check-input" value="<%= task %>"><span><%= task %></span>
+						</label>
+					</li>
+				<% }) %>
+				</ul>
+				<input type="submit" value="Remove" class="btn btn-primary">
+			</form>
+	  </div>
+
+	  <div class="tab-pane marginlayout fade" id="hash">
+			<h3 class="header3">HASH EXAMPLE</h3>
+
+			<div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+      <div class="card-header">Next Business Call</div>
+      <div class="card-body">
+        <h4 class="card-title">Call Record</h4>
+        <p class="card-text">
+							Name: <%= call.name %><br>
+							Company: <%= call.company %><br>
+							Phone: <%= call.phone %><br>
+							Time: <%= call.time %><br>
+				</p>
+    	</div>
+    </div>
+
+		<form method="post" action="/call/add" class="bs-component">
+			<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      	<div class="card-header">Next Call</div>
+			  <div class="card-body">
+			  		<h4 class="card-title">Edit</h4>
+			  		<p class="card-text">
+						<label>Contact Name</label><br>
+						<input type="text" name="name" placeholder="Task Name" class="form-control">
+						<label>Company</label><br>
+						<input type="text" name="company" placeholder="Company" class="form-control">
+						<label>Phone</label><br>
+						<input type="text" name="phone" placeholder="Phone" class="form-control">
+						<label>Day & Time</label><br>
+						<input type="text" name="time" placeholder="Time" class="form-control">
+						</p>
+        </div>
+	    </div>
+			<input type="submit" value="Submit" class="btn btn-outline-primary">
+			</form>
+		</div>
+		<div class="tab-pane marginlayout fade" id="geo">
+			<H3 class="header3">GEO EXAMPLE</h3>
+			<H3 class="header3">Calculate the distance between airports within a single state</h3>
+			<p class="text-primary">** Using two members in the geospatial index represented by the sorted set **</p>
 
 
-<H3 class="header3">Edit Next Call</h3>
-
-<form method="post" action="/call/add">
-<label>Contact Name</label><br>
-<input type="text" name="name" placeholder="Task Name">
-<br><br>
-<label>Company</label><br>
-<input type="text" name="company" placeholder="Company">
-<br><br>
-<label>Phone</label><br>
-<input type="text" name="phone" placeholder="Phone">
-<br><br>
-<label>Day & Time</label><br>
-<input type="text" name="time" placeholder="Time">
-<br><br>
-<input type="submit" value="Submit">
-</form>
-</article>
-
-<article id="geo" class="article">
-
-<H3 class="header3">GEO</h3>
-<H3 class="header3">Calculate linear distance between airports within a state</h3>
-
-<div id="cdg">
-<form id="calcGeoDist">
-<label>State</label><br>
-<select id="state" name="state" placeholder="State">
-<option value=""></option>
-<% states.forEach(function(state){ %>
-	<option value="<%= state %>"><%= state %></option>
-<% }) %>
-</select>
-<br><br>
-<!-- https://stackoverflow.com/questions/41148900/how-to-populate-html-drop-down-with-nodejs-data -->
-<label>Airport - Origin</label><br>
-<select id="origin" name="origin" placeholder="Origin">
-<!--	<option value="Galveston">Galveston</option> -->
-</select>
-<br><br>
-<label>Airport - Destination</label><br>
-<select id="destination" name="destination" placeholder="Destination">
-<!--	<option value="Austin">Austin</option> -->
-</select>
-<br><br>
-<label>Units</label><br>
-<select id="units" name="units" placeholder="Unit of measure">
-  <option value=""></option>
-  <option value="ft">Feet</option>
-	<option value="km">Kilometers</option>
-	<option value="m">Meters</option>
-	<option value="mi">Miles</option>
-</select>
-</div>
-<br><br>
-<div class="container">
-<div id="distance" class="alert alert-success" style="display: none">
-</div>
-<br><br>
-<div class="container">
-  <div id="message" class="alert alert-warning" style="display: none">
+			<div class="card text-white bg-dark mb-3" style="max-width: 50rem;">
+        <div class="card-header">Calculate geographic distance</div>
+        <div class="card-body">
+          <h4 class="card-title">Enter required information</h4>
+          <p class="card-text">
+					<form id="calcGeoDist" class="bs-component">
+						<label>State</label><br>
+						<select id="state" name="state" placeholder="State">
+						<option value=""></option>
+						<% states.forEach(function(state){ %>
+							<option value="<%= state %>"><%= state %></option>
+						<% }) %>
+						</select>
+						<br><br>
+						<!-- https://stackoverflow.com/questions/41148900/how-to-populate-html-drop-down-with-nodejs-data -->
+						<label>Airport - Origin</label><br>
+						<select id="origin" name="origin" placeholder="Origin">
+						<!--	<option value="Galveston">Galveston</option> -->
+						</select>
+						<br><br>
+						<label>Airport - Destination</label><br>
+						<select id="destination" name="destination" placeholder="Destination">
+						<!--	<option value="Austin">Austin</option> -->
+						</select>
+						<br><br>
+						<label>Units</label><br>
+						<select id="units" name="units" placeholder="Unit of measure">
+						  <option value=""></option>
+						  <option value="ft">Feet</option>
+							<option value="km">Kilometers</option>
+							<option value="m">Meters</option>
+							<option value="mi">Miles</option>
+						</select>
+						<br><br>
+						<div id="distance" class="alert alert-dismissible alert-success" style="display: none"></div>
+  				</p>
+        </div>
+      </div>
+			<p><div id="message" class="alert alert-dismissible alert-warning" style="display: none"></div></p>
+			</form>
+			<input id="calculate" type="button" value="Calculate" class="btn btn-primary">
+	  </div>
   </div>
-</div>
-<br><br>
-<input id="calculate" type="button" value="Calculate">
-</form>
-
-
-</article>
-
-<footer>Copyright &copy; MTR Consulting</footer>
-</div>
-<script src="http://localhost:3000/js/geo-calc.js" origin= async></script>
+	<br><br>
+	<span class="badge badge-info">Copyright &copy; MTR Consulting</span>
+	<script src="http://localhost:3000/js/geo-calc.js" origin=async></script>
+	<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+	<script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+	<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://bootswatch.com/_assets/js/custom.js"></script>
 </body>
+</html>
