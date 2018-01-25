@@ -86,13 +86,17 @@ docker container exec -t -i redis-svr /usr/local/bin/redis-cli smember States
 58 rows...
 ```
 
+### Atom setup
+1. change directory to the root folder and run ```npm install``` in a command window
+
 ### Run application
 
 
 
 
 #### Technology used
-1. [Node.js](https://nodejs.org/)  
+1. [Node.js](https://nodejs.org/)
+2. [Pug](https://jade-lang.com/)
 2. [ejs](http://ejs.co/)  
 3. [nodemon](https://www.npmjs.com/package/nodemon)
 3. [Docker](https://www.docker.com/)

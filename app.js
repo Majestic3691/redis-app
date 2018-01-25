@@ -5,6 +5,7 @@ var bodyParser = require('body-parser')
 var routes = require('./routes/')
 var config = require('./config')
 var router = express.Router()
+var pug = require('pug')
 // var tls = require('tls')
 // var fs = require('fs')
 
@@ -22,6 +23,7 @@ const options = {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
+// app.set('view engine', 'pug')
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -55,7 +57,8 @@ if (app.get('env') === 'development') {
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  res.status(404).send('Not Found')
+  res.status(404)
+  res.render('404.pug', {title: '404: Page requested not found: ' + req.url})
 })
 
 app.listen(config.app_port)

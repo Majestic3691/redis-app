@@ -27,6 +27,7 @@
     "express": "*",
     "jquery": "^3.2.1",
     "morgan": "*",
-    "redis": "*"
+    "redis": "*",
+    "pug": "*"
   }
 }

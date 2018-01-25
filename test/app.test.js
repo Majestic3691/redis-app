@@ -18,4 +18,6 @@ describe('GET /', function () {
       throw new Error(e)
     })
   })
+
+  it('GET ')
 })
