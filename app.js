@@ -57,7 +57,7 @@ if (app.get('env') === 'development') {
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  res.send('404: Page requested not found:' + req.url, 404)
+  res.status(404).send('<br><br><h3>404: Page requested not found   ::   ' + req.url + '</h3>')
 })
 
 app.listen(config.app_port)
