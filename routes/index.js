@@ -23,9 +23,24 @@ const options = {
 // Create Client
 // var client = redis.createClient(config.redisConf.port, config.redisConf.host, {tls: ssl})
 var client = redis.createClient(config.redisConf.port, config.redisConf.host)
+client.auth(config.redisConf.pass, function (err, result) {
+  if (err) {
+    console.log(err.stack)
+  } else {
+    console.log('Authentication was passed to the Redis Server, response was: ' + result)
+  }
+})
 
 client.on('connect', function () {
   console.log('Redis Server Connected at ' + config.redisConf.host + ':' + config.redisConf.port + '...')
+})
+
+client.ping(function (err, result) {
+  if (err) {
+    console.log(err.stack)
+  } else {
+    console.log('Redis Server was pinged, response was: ' + result)
+  }
 })
 
 client.on('error', function (err) {
