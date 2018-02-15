@@ -91,11 +91,19 @@ docker container exec -t -i redis-svr /usr/local/bin/redis-cli smember States
 
 ### Run application
 1. Start a command window
+2. Create a directory C:\apps
+```
+mkdir c:\apps
+cd c:\apps
+```
 2. Clone the repo
 ```
 git clone https://github.com/Majestic3691/redis-tasks
 ```
-3. Change the directory to where the repo was cloned
+3. Change the directory to where the repo was cloned - C:\apps\redis-tasks
+```
+cd c:\apps\redis-tasks
+```
 4. Modify the config.js to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
 5. Execute nodemon
 ```
@@ -110,7 +118,7 @@ Authentication was passed to the Redis Server, response was: OK
 Redis Server was pinged, response was: PONG
 ```
 6. Start your favorite browser and enter the URL - http://127.0.0.1:3000/
-
+7. Try out all three sets of operations...enjoy.
 
 #### Technology used
 1. [Node.js](https://nodejs.org/)
