@@ -90,8 +90,26 @@ docker container exec -t -i redis-svr /usr/local/bin/redis-cli smember States
 1. change directory to the root folder and run ```npm install``` in a command window
 
 ### Run application
-
-
+1. Start a command window
+2. Clone the repo
+```
+git clone https://github.com/Majestic3691/redis-tasks
+```
+3. Change the directory to where the repo was cloned
+4. Modify the config.js to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
+5. Execute nodemon
+```
+C:\Projects\AWS\github\redis-tasks>nodemon
+[nodemon] 1.14.12
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node app.js`
+Server Started at Thu Feb 15 2018 14:34:07 GMT-0600 (Central Standard Time) on Port 3000...
+Redis Server Connected at 192.168.1.187:6379...
+Authentication was passed to the Redis Server, response was: OK
+Redis Server was pinged, response was: PONG
+```
+6. Start your favorite browser and enter the URL - http://127.0.0.1:3000/
 
 
 #### Technology used
