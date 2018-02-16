@@ -117,7 +117,7 @@ Redis Server Connected at 192.168.1.187:6379...
 Authentication was passed to the Redis Server, response was: OK
 Redis Server was pinged, response was: PONG
 ```
-6. Start your favorite browser and enter the URL - http://127.0.0.1:3000/
+6. Start your favorite browser and enter the URL - http://localhost:3000/
 7. Try out all three sets of operations...enjoy.
 
 #### Technology used

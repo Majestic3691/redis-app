@@ -14,9 +14,15 @@ const options = {
   }
 }
 
-var corsOptions = {
-  origin: 'http://localhost',
-  optionsSuccessStatus: 200 // some browsers and devices gag on 204
+var whitelist = ['http://localhost', 'http://127.0.0.1']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
 // Establish SSL
@@ -166,7 +172,7 @@ router.get('/states', function (req, res) {
   })
 })
 
-router.get('/airports/:state', cors(corsOptions), function (req, res) {
+router.get('/airports/:state', cors(corsOptionsDelegate), function (req, res) {
   var state = req.params.state
   client.smembers(state, function (err, results) {
     if (err) {
