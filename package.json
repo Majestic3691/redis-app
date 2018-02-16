@@ -23,11 +23,12 @@
   "dependencies": {
     "body-parser": "*",
     "cookie-parser": "*",
+    "cors": "^2.8.4",
     "ejs": "^2.4.2",
     "express": "*",
     "jquery": "^3.2.1",
     "morgan": "*",
-    "redis": "*",
-    "pug": "*"
+    "pug": "*",
+    "redis": "*"
   }
 }

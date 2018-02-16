@@ -1,5 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
 var router = require('express').Router()
+var cors = require('cors')
 var redis = require('redis')
 var config = require('../config')
 
@@ -11,6 +12,11 @@ const options = {
     'Accept-Charset': 'utf-8',
     'User-Agent': 'my-reddit-client'
   }
+}
+
+var corsOptions = {
+  origin: 'http://localhost',
+  optionsSuccessStatus: 200 // some browsers and devices gag on 204
 }
 
 // Establish SSL
@@ -160,7 +166,7 @@ router.get('/states', function (req, res) {
   })
 })
 
-router.get('/airports/:state', function (req, res) {
+router.get('/airports/:state', cors(corsOptions), function (req, res) {
   var state = req.params.state
   client.smembers(state, function (err, results) {
     if (err) {

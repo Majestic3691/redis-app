@@ -1,4 +1,5 @@
 var express = require('express')
+var cors = require('cors')
 var path = require('path')
 var logger = require('morgan')
 var bodyParser = require('body-parser')
@@ -32,6 +33,7 @@ app.use(router)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'static')))
 app.use('/', routes)
+app.use(cors())
 
 // development error handler
 // will print stacktrace
