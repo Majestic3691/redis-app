@@ -5,7 +5,10 @@
 #
 
 # Pull base image.
-FROM dockerfile/ubuntu
+FROM dockerfile/redis
+
+# Maintainer
+MAINTAINER MICHAEL Ryan <mtritconsulting@outlook.com>
 
 # Install Redis.
 RUN \
