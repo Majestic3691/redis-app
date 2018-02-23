@@ -13,12 +13,16 @@ LABEL maintainer="MICHAEL Ryan <mtritconsulting@outlook.com>"
 
 # Copy Content to the /data/redis directory.
 COPY ./data/*.data ./redis/
-COPY ./data/LoadData.sh ./redis/
+COPY ./data/loaddata.sh ./redis/
 
 # Commands - load the data into redis.
 RUN \
-  cd ./data/redis && \
-  sh ./data/LoadData.sh 
+  pwd && \
+  cd /data/redis && \
+  chmod +x loaddata.sh && \
+  pwd && \
+  ls -lta && \
+  loaddata.sh
 
 # Users
 
