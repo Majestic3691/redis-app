@@ -7,4 +7,4 @@ REM * Remove Image
 docker image rm -f redisbase
 REM * Create the image and container - deploy
 docker build -t redisbase --iidfile imageID -f docker/Dockerfile .
-docker run -d --cidfile containerID --name redis-svr -p6379:6379 redisbase
+docker run -d --name redis-svr -p6379:6379 redisbase

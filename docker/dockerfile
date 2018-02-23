@@ -22,7 +22,9 @@ RUN \
   chmod +x loaddata.sh && \
   pwd && \
   ls -lta && \
-  loaddata.sh
+  ls -lta loaddata.sh
+#  /usr/local/bin/redis-cli ping
+#  ./loaddata.sh
 
 # Users
 
