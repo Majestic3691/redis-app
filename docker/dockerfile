@@ -11,12 +11,14 @@ FROM redis
 # Maintainer
 LABEL maintainer="MICHAEL Ryan <mtritconsulting@outlook.com>"
 
-# Commands.
-RUN cd /tmp
-
 # Copy Content to the /data/redis directory.
 COPY ./data/*.data ./redis/
 COPY ./data/LoadData.sh ./redis/
+
+# Commands - load the data into redis.
+RUN \
+  cd ./data/redis && \
+  sh ./data/LoadData.sh 
 
 # Users
 

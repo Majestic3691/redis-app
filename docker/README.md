@@ -1,7 +1,7 @@
 # docker-redis
-This is the procedure for creating a new docker machine, load redis container and connect/verify the installation.
+This is the procedure for creating a new docker machine, load redis container, load the data and connect/verify the installation.
 
-### Remove Docker machine
+### Remove Docker machine (wish to remove machine)
 ```
 z:\> docker-machine rm -f defaultVM
 About to remove defaultVM
@@ -15,24 +15,33 @@ Successfully removed defaultVM
 docker-machine create -d hyperv --hyperv-virtual-switch "Majestic LAN Virtual Switch" defaultVM
 ```
 
+### Configure environment
+	1. docker-machine ls - returns names of docker machines
+	2. Get environment to specific docker machine
+	```
+	docker-machine env defaultVM
+	```
+	3. Set environment
+	```
+	& "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env defaultVM | Invoke-Expression
+	```
+	4. List containers running on machine
+	```
+	docker ps -a
+	```
 
-docker-machine create -d hyperv --hyperv-virtual-switch "Majestic LAN Virtual Switch" --hyperv-disk-size 1024 --hyperv-memory <mb> --hyperv-cpu-count 2 sqldbVM
+### Create containers
 
-### [Redis on Docker in Windows](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/02/21/containers-redis-running-redis-on-windows-with-docker/)
+###
 
-https://store.docker.com/images/redis?tab=description
+
+
 
 #### Create containers
 ```
 docker run -d --name redis-svr -p 6379:6379 redis
 docker run --name redis-svr -d redis
 ```
-Configure - start environment
-
-	1. docker-machine ls - returns names of docker machines
-	2. docker-machine env defaultVM
-	3. & "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env defaultVM | Invoke-Expression
-	4. docker ps -a
 
 #### Stop and remove Container
 ```
@@ -442,3 +451,9 @@ OK
 127.0.0.1:6379> auth "majestic"
 OK
 ```
+
+
+#### References
+##### [Redis on Docker in Windows](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/02/21/containers-redis-running-redis-on-windows-with-docker/)
+
+https://store.docker.com/images/redis?tab=description
