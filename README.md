@@ -1,5 +1,11 @@
 # redis-app
 
+## Docker setup
+[Docker container setup](https://github.com/Majestic3691/redis-tasks/blob/master/docker/README.md)
+
+
+
+
 ### Node.js Application to use list, hash and geo spatial operations of redis
 
  The geo spatial operations are not supported on the version of redis created for Windows [here](https://redis.io/download). An alternative to Redis on Windows is to host on Docker.
