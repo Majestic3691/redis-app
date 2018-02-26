@@ -17,14 +17,17 @@ COPY ./data/loaddata.sh ./redis/
 
 # Commands - load the data into redis.
 RUN \
+  apt-get update && apt-get upgrade -y && \
   pwd && \
   cd /data/redis && \
   chmod +x loaddata.sh && \
   pwd && \
   ls -lta && \
-  ls -lta loaddata.sh
-#  /usr/local/bin/redis-cli ping
-#  ./loaddata.sh
+  ls -lta loaddata.sh && \
+  redis-server --daemonize yes && \
+  echo '/usr/local/bin/redis-cli ping' && \
+  /usr/local/bin/redis-cli ping && \
+  ./loaddata.sh
 
 # Users
 
