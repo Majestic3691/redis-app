@@ -9,7 +9,7 @@ FROM redis
 
 
 # Maintainer
-LABEL maintainer="MICHAEL Ryan <mtritconsulting@outlook.com>"
+LABEL maintainer="Michael Ryan <mtritconsulting@outlook.com>"
 
 # Copy Content to the /data/redis directory.
 COPY ./data/*.data ./redis/
@@ -17,7 +17,7 @@ COPY ./data/loaddata.sh ./redis/
 
 # Commands - load the data into redis.
 RUN \
-  apt-get update && apt-get upgrade -y && \
+#  apt-get update && apt-get upgrade -y && \
   pwd && \
   cd /data/redis && \
   chmod +x loaddata.sh && \
@@ -25,9 +25,21 @@ RUN \
   ls -lta && \
   ls -lta loaddata.sh && \
   redis-server --daemonize yes && \
-  echo '/usr/local/bin/redis-cli ping' && \
+  bash -c echo '/usr/local/bin/redis-cli ping' && \
   /usr/local/bin/redis-cli ping && \
-  ./loaddata.sh
+  bash -c echo 'Loading data...' && \
+#  ./data/redis/loaddata.sh
+  /usr/local/bin/redis-cli flushall async && \
+  echo ">> Loading State Airports..." && \
+  cat /data/redis/StateAirportsSetReady.data | /usr/local/bin/redis-cli --pipe  && \
+  echo ">> Loading States..." && \
+  cat /data/redis/StatesReady.data | /usr/local/bin/redis-cli --pipe && \
+  echo ">> Loading Tasks..." && \
+  cat /data/redis/TaskReady.data | /usr/local/bin/redis-cli --pipe && \
+  echo ">> Loading GEO data..." && \
+  cat /data/redis/GEOAirportDataReady.data | /usr/local/bin/redis-cli --pipe && \
+  echo ">> Loading Call Log..." && \
+  cat /data/redis/CallReady.data | /usr/local/bin/redis-cli --pipe
 
 # Users
 
