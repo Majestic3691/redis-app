@@ -35,13 +35,19 @@ var corsOptionsDelegate = function (req, callback) {
 // Create Client
 // var client = redis.createClient(config.redisConf.port, config.redisConf.host, {tls: ssl})
 var client = redis.createClient(config.redisConf.port, config.redisConf.host)
-client.auth(config.redisConf.pass, function (err, result) {
-  if (err) {
-    console.log(err.stack)
-  } else {
-    console.log('Authentication was passed to the Redis Server, response was: ' + result)
-  }
-})
+var pwd = config.redisConf.pass
+console.log('Pwd: ' + pwd)
+if (typeof pwd === 'undefined') {
+  // do nothing
+} else {
+  client.auth(config.redisConf.pass, function (err, result) {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log('Authentication was passed to the Redis Server, response was: ' + result)
+    }
+  })
+}
 
 client.on('connect', function () {
   console.log('Redis Server Connected at ' + config.redisConf.host + ':' + config.redisConf.port + '...')
