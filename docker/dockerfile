@@ -24,7 +24,7 @@ RUN \
   pwd && \
   ls -lta && \
   echo ">> Starting Redis to load data..." && \
-  redis-server /etc/redis.conf  && \
+  redis-server /etc/redis.conf && \
   echo ">> /usr/local/bin/redis-cli ping" && \
   /usr/local/bin/redis-cli ping && \
   echo ">> Loading State Airports..." && \
@@ -56,7 +56,7 @@ RUN \
 VOLUME ["/data"]
 
 # Define working directory.
-WORDDIR /data
+WORKDIR /data
 
 # Define default command.
 #CMD ["redis-server", "/etc/redis.conf"]

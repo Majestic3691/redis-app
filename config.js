@@ -2,8 +2,9 @@ var config = {
   app_port: 3000,
 //  secret: 'secret',
 
+// docker-machine inspect defaultVM
   redisConf: {
-    host: '192.168.1.210', // The redis's server ip
+    host: '192.168.1.211', // The redis's server ip
     port: '6379'
     //    def_host: 'MAJESTIC8570W2', // The redis's server ip
     //    def_host: '127.0.0.1', // The redis's server ip
