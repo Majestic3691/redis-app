@@ -14,22 +14,19 @@ LABEL maintainer="Michael Ryan <mtritconsulting@outlook.com>"
 # Copy Content to the /data/redis directory.
 COPY ./data/*.data ./redis/
 COPY ./data/loaddata.sh ./redis/
+COPY ./docker/redis.conf /etc
 
 # Commands - load the data into redis.
 RUN \
 #  apt-get update && apt-get upgrade -y && \
   pwd && \
   cd /data/redis && \
-  chmod +x loaddata.sh && \
   pwd && \
   ls -lta && \
-  ls -lta loaddata.sh && \
-  redis-server --daemonize yes && \
-  bash -c echo '/usr/local/bin/redis-cli ping' && \
+  echo ">> Starting Redis to load data..." && \
+  redis-server /etc/redis.conf  && \
+  echo ">> /usr/local/bin/redis-cli ping" && \
   /usr/local/bin/redis-cli ping && \
-  bash -c echo 'Loading data...' && \
-#  ./data/redis/loaddata.sh
-  /usr/local/bin/redis-cli flushall async && \
   echo ">> Loading State Airports..." && \
   cat /data/redis/StateAirportsSetReady.data | /usr/local/bin/redis-cli --pipe  && \
   echo ">> Loading States..." && \
@@ -39,7 +36,19 @@ RUN \
   echo ">> Loading GEO data..." && \
   cat /data/redis/GEOAirportDataReady.data | /usr/local/bin/redis-cli --pipe && \
   echo ">> Loading Call Log..." && \
-  cat /data/redis/CallReady.data | /usr/local/bin/redis-cli --pipe
+  cat /data/redis/CallReady.data | /usr/local/bin/redis-cli --pipe && \
+  echo ">> Verify GEO data..." && \
+  /usr/local/bin/redis-cli geopos Texas Amoco && \
+  echo ">> Verify Tasks data..." && \
+  /usr/local/bin/redis-cli lrange tasks 0 -1 && \
+  echo ">> Verify States..." && \
+  /usr/local/bin/redis-cli smembers states && \
+  echo ">> Verify State Airports (Massachusetts Cranland Crowhurst mi)..." && \
+  /usr/local/bin/redis-cli geodist Massachusetts Cranland Crowhurst mi && \
+  echo ">> Verify Call Log..." && \
+  /usr/local/bin/redis-cli hgetall call && \
+  echo ">> Shutdown Redis Server..." && \
+  /usr/local/bin/redis-cli shutdown save
 
 # Users
 
