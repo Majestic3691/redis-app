@@ -48,14 +48,18 @@ RUN \
   echo ">> Verify Call Log..." && \
   /usr/local/bin/redis-cli hgetall call && \
   echo ">> Shutdown Redis Server..." && \
-  /usr/local/bin/redis-cli shutdown save
+  /usr/local/bin/redis-cli save
 
 # Users
 
 # Define mountable directories.
+VOLUME ["/data"]
 
 # Define working directory.
+WORDDIR /data
 
 # Define default command.
+#CMD ["redis-server", "/etc/redis.conf"]
 
 # Expose ports.
+#EXPOSE 6379
