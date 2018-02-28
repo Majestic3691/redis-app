@@ -7,9 +7,18 @@
 # Pull base image.
 FROM redis
 
-
-# Maintainer
+# Meta data
+LABEL vendor="MTR Consulting"
 LABEL maintainer="Michael Ryan <mtritconsulting@outlook.com>"
+LABEL com.example.version="0.0.1-beta"
+LABEL com.example.release-date="2018-02-28"
+
+
+# Defines the container to be an executable
+#ENTRYPOINT ["n/a"]
+
+# Define working directory.
+WORKDIR /usr/share/redis/data
 
 # Copy Content to the /usr/share/redis/data/ directory.
 COPY ./data/*.data /usr/share/redis/data/
@@ -60,10 +69,7 @@ RUN \
 # Users
 
 # Define mountable directories.
-VOLUME ["/data"]
-
-# Define working directory.
-WORKDIR /data
+#VOLUME ["/data"]
 
 # Define default command.
 #CMD ["redis-server", "/etc/redis.conf"]
