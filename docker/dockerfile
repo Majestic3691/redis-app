@@ -11,32 +11,31 @@ FROM redis
 # Maintainer
 LABEL maintainer="Michael Ryan <mtritconsulting@outlook.com>"
 
-# Copy Content to the /data/redis directory.
-COPY ./data/*.data ./redis/
-COPY ./data/loaddata.sh ./redis/
-COPY ./docker/redis.conf /etc
+# Copy Content to the /usr/share/redis/data/ directory.
+COPY ./data/*.data /usr/share/redis/data/
+COPY ./data/loaddata.sh /usr/share/redis/data/
+COPY ./docker/redis.conf /etc/
 
 # Commands - load the data into redis.
 RUN \
 #  apt-get update && apt-get upgrade -y && \
-  pwd && \
-  cd /data/redis && \
-  pwd && \
-  ls -lta && \
+  mkdir -p /etc/redis && \
+  mv /etc/redis.conf /etc/redis && \
+  ls -lta /etc/redis && \
   echo ">> Starting Redis to load data..." && \
-  redis-server /etc/redis.conf && \
+  redis-server /etc/redis/redis.conf && \
   echo ">> /usr/local/bin/redis-cli ping" && \
   /usr/local/bin/redis-cli ping && \
   echo ">> Loading State Airports..." && \
-  cat /data/redis/StateAirportsSetReady.data | /usr/local/bin/redis-cli --pipe  && \
+  cat /usr/share/redis/data/StateAirportsSetReady.data | /usr/local/bin/redis-cli --pipe  && \
   echo ">> Loading States..." && \
-  cat /data/redis/StatesReady.data | /usr/local/bin/redis-cli --pipe && \
+  cat /usr/share/redis/data/StatesReady.data | /usr/local/bin/redis-cli --pipe && \
   echo ">> Loading Tasks..." && \
-  cat /data/redis/TaskReady.data | /usr/local/bin/redis-cli --pipe && \
+  cat /usr/share/redis/data/TaskReady.data | /usr/local/bin/redis-cli --pipe && \
   echo ">> Loading GEO data..." && \
-  cat /data/redis/GEOAirportDataReady.data | /usr/local/bin/redis-cli --pipe && \
+  cat /usr/share/redis/data/GEOAirportDataReady.data | /usr/local/bin/redis-cli --pipe && \
   echo ">> Loading Call Log..." && \
-  cat /data/redis/CallReady.data | /usr/local/bin/redis-cli --pipe && \
+  cat /usr/share/redis/data/CallReady.data | /usr/local/bin/redis-cli --pipe && \
   echo ">> Verify GEO data..." && \
   /usr/local/bin/redis-cli geopos Texas Amoco && \
   echo ">> Verify Tasks data..." && \
@@ -47,8 +46,16 @@ RUN \
   /usr/local/bin/redis-cli geodist Massachusetts Cranland Crowhurst mi && \
   echo ">> Verify Call Log..." && \
   /usr/local/bin/redis-cli hgetall call && \
+  echo ">> Save the loaded data..." && \
+  cd /usr/share/redis/data && /usr/local/bin/redis-cli save && \
+  chown redis:redis /usr/share/redis/data/dump.rdb && \
+  chmod 660 /usr/share/redis/data/dump.rdb && \
+  ls -lta /usr/share/redis/data/dump.rdb && \
+  echo ">> Copy DB Backup to /data..." && \
+  cp /usr/share/redis/data/dump.rdb /data && \
+  ls -lta /usr/share/redis/data/dump.rdb && \
   echo ">> Shutdown Redis Server..." && \
-  /usr/local/bin/redis-cli save
+  /usr/local/bin/redis-cli shutdown
 
 # Users
 
