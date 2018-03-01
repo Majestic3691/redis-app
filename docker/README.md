@@ -37,8 +37,12 @@ REM     @FOR /f "tokens=*" %i IN ('docker-machine env defaultVM') DO @%i
 ```
 z:\>& "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env defaultVM | Invoke-Expression
 ```
-#### 4. Create the image, the container and deploy.
+#### 4. Create the image, the container and deploy - createDocker.cmd
+Execute the **createDocker.cmd** script in a command window.
 ```
+z:\> createDocker.cmd
+
+
 z:\>docker images prune -q
 z:\>docker container prune -f
 Total reclaimed space: 0B
