@@ -3,16 +3,16 @@ This is the procedure for creating a new docker machine, load redis container, l
 
 ### Remove Docker machine (wish to remove machine)
 ```
-	z:\> docker-machine rm -f defaultVM
-	About to remove defaultVM
-	WARNING: This action will delete both local reference and remote instance.
-	Error removing host "defaultVM": exit status 1
-	Successfully removed defaultVM
+z:\> docker-machine rm -f defaultVM
+About to remove defaultVM
+WARNING: This action will delete both local reference and remote instance.
+Error removing host "defaultVM": exit status 1
+Successfully removed defaultVM
 ```
 
 ### Create Docker machine for hosting Redis
 ```
-	docker-machine create -d hyperv --hyperv-virtual-switch "Majestic LAN Virtual Switch" defaultVM
+docker-machine create -d hyperv --hyperv-virtual-switch "Majestic LAN Virtual Switch" defaultVM
 ```
 
 ### Configure environment
