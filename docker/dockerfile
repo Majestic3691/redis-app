@@ -51,6 +51,10 @@ RUN \
   /usr/local/bin/redis-cli lrange tasks 0 -1 && \
   echo ">> Verify States..." && \
   /usr/local/bin/redis-cli smembers states && \
+  echo ">> Verify Alabama..." && \
+  /usr/local/bin/redis-cli smembers alabama && \
+  echo ">> Verify Wyoming..." && \
+  /usr/local/bin/redis-cli smembers wyoming && \
   echo ">> Verify State Airports (Massachusetts Cranland Crowhurst mi)..." && \
   /usr/local/bin/redis-cli geodist Massachusetts Cranland Crowhurst mi && \
   echo ">> Verify Call Log..." && \
