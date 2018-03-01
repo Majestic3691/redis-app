@@ -180,7 +180,9 @@ z:\>docker-machine inspect defaultVM
 ```
 z:\>docker inspect redis-svr
 ```
-### Troubleshooting - Docker
+### Troubleshooting
+
+#### Docker section - verify configuration
 
 ###### Verify port on container using ID
 ```
@@ -209,7 +211,7 @@ PONG
 z:\>docker container exec -t -i redis-svr /bin/bash
 ```
 
-#### Troubleshooting - Redis
+#### Redis section - verify configuration
 
 ###### Create a monitor for the Redis service
 ```
@@ -228,7 +230,7 @@ z:\>docker container exec -t -i redis-svr /usr/local/bin/redis-cli client list
 z:\>docker container exec -t -i redis-svr /usr/local/bin/redis-cli info
 ```
 
-#### Troubleshooting - Verify data installation/Configuration (within the container)
+#### Data section - Verify data installation/Configuration (within the container)
 
 ###### Verify the GEO data is loaded
 ```
