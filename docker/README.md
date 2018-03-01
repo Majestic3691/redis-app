@@ -41,7 +41,7 @@ z:\>& "C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env defa
 Execute the **createDocker.cmd** script in a command window.
 ```
 z:\> createDocker.cmd
-
+...
 
 z:\>docker images prune -q
 z:\>docker container prune -f
@@ -180,7 +180,7 @@ z:\>docker-machine inspect defaultVM
 ```
 z:\>docker inspect redis-svr
 ```
-#### Troubleshooting - Docker
+### Troubleshooting - Docker
 
 ###### Verify port on container using ID
 ```
@@ -223,12 +223,12 @@ z:\>docker container exec -t -i redis-svr /bin/bash
 z:\>docker container exec -t -i redis-svr /usr/local/bin/redis-cli client list
 ```
 
-#### Display information for the Redis service
+###### Display information for the Redis service
 ```
 z:\>docker container exec -t -i redis-svr /usr/local/bin/redis-cli info
 ```
 
-#### Verify data installation/Configuration (within the container)
+#### Troubleshooting - Verify data installation/Configuration (within the container)
 
 ###### Verify the GEO data is loaded
 ```
@@ -275,7 +275,7 @@ z:\> docker container exec -t -i redis-svr /usr/local/bin/redis-cli smembers wyo
 ...lists 120 airports...
 ```
 
-#### References
+### References
 ###### [Redis on Docker in Windows](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/02/21/containers-redis-running-redis-on-windows-with-docker/)
 
 ###### [Redis image Docker Store](https://store.docker.com/images/redis?tab=description/)
