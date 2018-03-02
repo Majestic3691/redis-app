@@ -1,13 +1,13 @@
 # redis-app
 
 ## Docker setup
-[Docker container setup](https://github.com/Majestic3691/redis-tasks/blob/master/docker/README.md)
 
-*__The geo spatial operations are not supported on the version of redis created for Windows__* [here](https://redis.io/download). An alternative to Redis on Windows is to host on Docker.
+*__The geo spatial operations are not supported on the version of redis created for Windows__* [here](https://redis.io/download). An alternative to Redis on Windows is to host on Docker. [Docker container setup](https://github.com/Majestic3691/redis-tasks/blob/master/docker/README.md)
 
-### Node.js Application to use list, hash and geo spatial operations of redis
+### Description
+Node.js Application to use list, hash and geo spatial operations of redis
 
-### Atom setup
+## Atom setup
 1. Change directory to the root folder and run ```npm install``` in a command window
 
 ### Install/Configure application
@@ -25,7 +25,7 @@ git clone https://github.com/Majestic3691/redis-tasks
 ```
 cd c:\apps\redis-tasks
 ```
-#### 5. Modify the *config.js* to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
+##### 5. Modify the *config.js* to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
 
 ##### 6. Execute nodemon
 ```
@@ -42,7 +42,7 @@ Redis Server was pinged, response was: PONG
 ##### 7. Start your favorite browser and enter the URL - http://localhost:3000/
 ##### 8. Try out all three sets of operations...enjoy.
 
-#### Technology used
+### Technology used
 1. [Node.js](https://nodejs.org/)
 2. [Pug](https://jade-lang.com/)
 2. [ejs](http://ejs.co/)  
