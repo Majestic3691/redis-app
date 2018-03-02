@@ -7,9 +7,6 @@
 ### Description
 Node.js Application to use list, hash and geo spatial operations of redis
 
-## Atom setup
-1. Change directory to the root folder and run ```npm install``` in a command window
-
 ### Install/Configure application
 ##### 1. Start a command window
 ##### 2. Create a directory C:\apps
@@ -21,13 +18,22 @@ cd c:\apps
 ```
 git clone https://github.com/Majestic3691/redis-tasks
 ```
-##### 4. Change the directory to where the repo was cloned - C:\apps\redis-tasks
+##### 4. Atom setup
+Install Atom - [Atom](https://atom.io/)
+
+Change directory to the root folder and run ```npm install``` in a command window
+```
+cd c:\apps\redis-tasks
+npm install
+```
+
+##### 5. Change the directory to where the repo was cloned - C:\apps\redis-tasks
 ```
 cd c:\apps\redis-tasks
 ```
-##### 5. Modify the *config.js* to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
+##### 6. Modify the *config.js* to reflect the proper IP for the docker container and password if the redis installation is secured with a password.
 
-##### 6. Execute nodemon
+##### 7. Execute nodemon
 ```
 z:\>nodemon
 [nodemon] 1.14.12
@@ -39,8 +45,8 @@ Redis Server Connected at 192.168.1.187:6379...
 Authentication was passed to the Redis Server, response was: OK
 Redis Server was pinged, response was: PONG
 ```
-##### 7. Start your favorite browser and enter the URL - http://localhost:3000/
-##### 8. Try out all three sets of operations...enjoy.
+##### 8. Start your favorite browser and enter the URL - http://localhost:3000/
+##### 9. Try out all three sets of operations...enjoy.
 
 ### Technology used
 1. [Node.js](https://nodejs.org/)
